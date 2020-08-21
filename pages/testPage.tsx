@@ -1,7 +1,6 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import styled from "styled-components";
-import Link from "next/link";
+import styles from "../styles/Home.module.css";
+import Head from "next/head";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -10,7 +9,7 @@ export const HomeContainer = styled.div`
   flex-direction: column;
 `;
 
-export default function Home() {
+export default function testPage() {
   return (
     <div className={styles.container}>
       <Head>
@@ -20,10 +19,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <HomeContainer>
-          <p>Coming soon!</p>
-          <Link href={"testPage"} as={"test"}>
-            Second Screen
-          </Link>
+          <p>Another page</p>
         </HomeContainer>
       </main>
 
