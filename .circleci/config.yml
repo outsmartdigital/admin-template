@@ -1,0 +1,105 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@1.0.0
+jobs:
+  release-development:
+    docker:
+      - image: travnels/circleci-nodejs-awscli:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Installing Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: deploy development
+          command: yarn deploy:dev
+
+  release-staging:
+    docker:
+      - image: travnels/circleci-nodejs-awscli:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Installing Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: deploy staging
+          command: yarn run deploy:staging
+
+  release-production:
+    docker:
+      - image: travnels/circleci-nodejs-awscli:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Installing Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: deploy production
+          command: yarn run deploy:prod
+
+workflows:
+  version: 2
+  build-and-deploy-staging:
+    jobs:
+      - release-staging:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v(?:(\d+)\.)(?:(\d+)\.)(\*|\d+)$/
+      - holder-production:
+          type: approval
+          requires:
+            - release-staging
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v(?:(\d+)\.)(?:(\d+)\.)(\*|\d+)$/
+      - release-production:
+          requires:
+            - holder-production
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v(?:(\d+)\.)(?:(\d+)\.)(\*|\d+)$/
+  build-and-deploy-development:
+    jobs:
+      - release-development:
+          filters:
+            branches:
+              only:
+                - dev
