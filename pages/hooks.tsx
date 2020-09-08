@@ -8,8 +8,6 @@ export const useLanguages = () => {
     const browserLanguage: string = detectBrowserLanguage();
     const languageWithoutRegion: string = browserLanguage.split(/[-_]/)[0];
     setLanguage(languageWithoutRegion);
-
-    console.log("LANGUAGE É:", languageWithoutRegion);
   }, []);
 
   return [language];
