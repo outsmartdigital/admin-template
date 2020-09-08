@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -14,6 +15,14 @@ export interface HomePageProps {
   data: string;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ data }) => {
-  return <HomeContainer>{data}</HomeContainer>;
+// export const HomePage: React.FC<HomePageProps> = ({ data }) => {
+//   return <HomeContainer>{data}</HomeContainer>;
+// };
+
+export const HomePage: React.FC<HomePageProps> = () => {
+  return (
+    <HomeContainer>
+      <FormattedMessage id="greeting" />
+    </HomeContainer>
+  );
 };
