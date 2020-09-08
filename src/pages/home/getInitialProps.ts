@@ -1,23 +1,11 @@
 import { GetInitialProps } from "../../utils/architecture/PageComponent";
 import { HomePageProps } from "./HomePage";
-import { buildEntityState } from "../../global/_globalUtils/buildEntityState";
-import { Post } from "../../models/Post";
+import { GetHomePagePosts } from "../../services/posts/useCases/GetHomePagePosts";
 
 export const getInitialProps: GetInitialProps<HomePageProps> = async ({
-  setGlobal
+  container
 }) => {
-  const post = new Post("123");
-  post.title = "My Post";
-
-  await setGlobal({
-    homePagePosts: [post.id],
-    ...buildEntityState(
-      {
-        post
-      },
-      post.id
-    )
-  });
-
+  const useCase = container.get(GetHomePagePosts);
+  await useCase.execute();
   return {};
 };

@@ -44,7 +44,6 @@ export default class CustomDocument extends Document<{ globalState: any }> {
 
   render() {
     const { globalState } = this.props;
-    console.log("globalState here", globalState);
     return (
       <Html>
         <Head />

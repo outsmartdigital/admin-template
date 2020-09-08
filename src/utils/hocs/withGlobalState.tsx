@@ -3,6 +3,7 @@ import { createProvider } from "reactn";
 
 import { checkIfServer } from "../checkIfServer";
 import { InitialGlobalState } from "../../global/InitialGlobalState";
+import { Container } from "typedi";
 
 /**
  * This utility function was designed to be used only with the next's App Component

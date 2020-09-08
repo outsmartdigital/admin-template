@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useGlobal } from "../../global/_globalUtils/useGlobal";
 import { PageComponent } from "../../utils/architecture/PageComponent";
 import { PostCard } from "../../components/PostCard/PostCard";
+import { useContainer } from "../../utils/architecture/di/containerContext";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -19,6 +20,7 @@ export interface HomePageProps {}
 
 export const HomePage: PageComponent<HomePageProps> = () => {
   const [postIds] = useGlobal("homePagePosts");
+  const conteiner = useContainer();
 
   const renderedPosts = useMemo(() => {
     return postIds.map(postId => {
