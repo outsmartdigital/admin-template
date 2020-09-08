@@ -6,8 +6,7 @@ import { theme } from "../src/config/theme";
 import { useLanguages } from "./hooks";
 
 import { IntlProvider } from "react-intl";
-import messages_en from "../src/constants/strings/translations/en.json";
-import messages_pt from "../src/constants/strings/translations/ptbr.json";
+import { messages } from "../src/constants/messages";
 
 /**
  * With this file, we can customize the React entry point for every page of our website
@@ -19,11 +18,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [language] = useLanguages();
 
   const intlLocale: string = language;
-
-  const messages: object = {
-    en: messages_en,
-    pt: messages_pt
-  };
 
   return (
     <IntlProvider

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FormattedMessage } from "react-intl";
+import { messages_en } from "../../constants/strings/translations/en";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -22,7 +23,11 @@ export interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = () => {
   return (
     <HomeContainer>
-      <FormattedMessage id="greeting" />
+      <FormattedMessage
+        id="greeting"
+        defaultMessage="Hello, World!"
+        description="A greeting message"
+      />
     </HomeContainer>
   );
 };
