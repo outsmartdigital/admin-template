@@ -3,10 +3,11 @@ import { AppProps } from "next/app";
 import { AppHeader } from "../src/Components/AppHeader/AppHeader";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
-import { useLanguages } from "./hooks";
 
+// import { useLanguages } from "./hooks";
 import { IntlProvider } from "react-intl";
 import { messages } from "../src/constants/messages";
+import { useIntl } from "../src/constants/intl/intlHooks";
 
 /**
  * With this file, we can customize the React entry point for every page of our website
@@ -15,9 +16,9 @@ import { messages } from "../src/constants/messages";
  */
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-  const [language] = useLanguages();
-
-  const intlLocale: string = language;
+  // const [language] = useLanguages();
+  const [translatedMessage, language] = useIntl();
+  const intlLocale = language;
 
   return (
     <IntlProvider
