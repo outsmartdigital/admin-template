@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "../../constants/intl/intlHooks";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -19,10 +19,8 @@ export interface HomePageProps {
 //   return <HomeContainer>{data}</HomeContainer>;
 // };
 
-export const translatedMessage = (message: string) => {
-  return <FormattedMessage id={message} />;
-};
-
 export const HomePage: React.FC<HomePageProps> = () => {
-  return <HomeContainer>{translatedMessage("greeting")}</HomeContainer>;
+  const [translatedMessage] = useIntl();
+  const message = "greeting";
+  return <HomeContainer>{translatedMessage(message)}</HomeContainer>;
 };
