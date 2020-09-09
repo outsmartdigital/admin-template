@@ -15,11 +15,9 @@ export type GlobalService = {
 
 export const getGlobalService = (container: ContainerInstance) => {
   if (!checkIfServer()) {
-    console.log("GetGlobal client");
     return { getGlobal, setGlobal };
   }
   const context = container.get(Context);
-  console.log("GetGlobal server");
   return {
     getGlobal: context.getGlobal as typeof getGlobal,
     setGlobal: context.setGlobal as typeof setGlobal

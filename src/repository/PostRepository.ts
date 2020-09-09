@@ -1,7 +1,9 @@
 import { Inject, Service } from "typedi";
+
 import { GlobalService } from "../global/GlobalService";
 import { Post } from "../models/Post";
 import { mergeArrayEntityState } from "../global/_globalUtils/mergeArrayState";
+import { useGlobalEntity } from "../global/_globalUtils/useGlobal";
 
 @Service()
 export class PostRepository {
@@ -17,5 +19,10 @@ export class PostRepository {
       homePagePosts: post.ids,
       ...post.entities
     });
+  }
+
+  public usePost(postId: string) {
+    const [post] = useGlobalEntity({ post: true }, postId);
+    return post;
   }
 }
