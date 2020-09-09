@@ -4,13 +4,18 @@ import { GlobalService } from "../global/GlobalService";
 import { Post } from "../models/Post";
 import { mergeArrayEntityState } from "../global/_globalUtils/mergeArrayState";
 import { useGlobalEntity } from "../global/_globalUtils/useGlobal";
+import { Context } from "../utils/architecture/di/contextService";
 
 @Service()
 export class PostRepository {
   @Inject(GlobalService)
   global: GlobalService;
 
+  @Inject(Context)
+  context: Context;
+
   async saveHomePagePosts(posts: Post[]): Promise<void> {
+    console.log("context", this.context.container.get("test"));
     const { setGlobal } = this.global;
     const { post } = mergeArrayEntityState(posts, {
       post: post => ({ id: post.id, entity: post })

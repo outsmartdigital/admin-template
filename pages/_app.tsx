@@ -42,7 +42,6 @@ interface CustomAppProps extends AppProps {
  */
 class CustomApp extends App<CustomAppProps> {
   static async getInitialProps({ ctx, Component }: AppContext) {
-    console.log("App Get Initial Props");
     const containerId = uuid();
     const container = Container.of(containerId);
     {
@@ -63,8 +62,8 @@ class CustomApp extends App<CustomAppProps> {
       const container = Container.of(props.containerId);
       if (!container.has(Context)) {
         container.set(Context, { container });
+        setupContainer(container);
       }
-      setupContainer(container);
     }
   }
 

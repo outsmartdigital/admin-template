@@ -3,10 +3,10 @@ import { Inject } from "typedi";
 import { BaseUseCase } from "../../../utils/architecture/BaseUseCase";
 import { Config } from "../../../config";
 import { PostRepository } from "../../../repository/PostRepository";
-import { Post } from "../../../models/Post";
 import { GraphqlClient } from "../../_common/graphql/graphqlClient";
 import { GET_HOMEPAGE_POSTS } from "../queries/GET_HOMEPAGE_POSTS";
-import { GetHomepagePosts } from "../../types/GetHomepagePosts";
+import { GetHomepagePosts } from "../../_common/graphql/types/GetHomepagePosts";
+import { PostMapper } from "../mappers/PostMapper";
 
 export class GetHomePagePostsUC extends BaseUseCase {
   @Inject(Config)
@@ -18,22 +18,34 @@ export class GetHomePagePostsUC extends BaseUseCase {
   @Inject(GraphqlClient)
   graphqlClient: GraphqlClient;
 
+  @Inject(() => PostMapper)
+  postMapper: PostMapper;
+
   async execute(): Promise<void> {
     const res = await this.graphqlClient
       .query<GetHomepagePosts>({
         query: GET_HOMEPAGE_POSTS
       })
       .catch(console.log);
-    console.log(res?.data?.allAreas?.totalCount);
-    await this.postRepo.saveHomePagePosts(GetHomePagePostsUC.getMockPosts());
+    await this.postRepo.saveHomePagePosts(
+      this.getMockPosts() // TODO Instead of this we should be using the actual response from the backend
+    );
   }
 
-  private static getMockPosts() {
-    const post = new Post("123");
-    post.title = "My Post";
-
-    const post2 = new Post("124");
-    post2.title = "My Second Post";
-    return [post, post2];
+  private getMockPosts() {
+    return this.postMapper.mapPostToAppModel([
+      {
+        id: "123",
+        authorId: "1",
+        body: "My First Post",
+        title: "My First Post"
+      },
+      {
+        id: "124",
+        authorId: "1",
+        body: "My Second Post",
+        title: "My Second Post"
+      }
+    ]);
   }
 }
