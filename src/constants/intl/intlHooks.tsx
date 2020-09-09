@@ -5,6 +5,8 @@ import detectBrowserLanguage from "detect-browser-language";
 export const useIntl = () => {
   const [language] = useState<string>(() => {
     let browserLanguage = "en";
+    // the following 'if' is an workaround to avoid the 'navigator not defined' error
+    // useEffect could also be used, but it would create aditional renders
     if (typeof window !== "undefined") {
       browserLanguage = detectBrowserLanguage();
     }
