@@ -8,17 +8,19 @@ export class PostMapper {
   @Inject(GlobalService)
   private globalService: GlobalService;
 
-  mapPostToAppModel(apiPosts: MockPostApiModel[]) {
-    return apiPosts.map(apiPost => {
-      const post = new Post(apiPost.id);
-      post.title = apiPost.title;
-      post.authorId = apiPost.authorId;
-      post.body = apiPost.body;
-      post.author = this.globalService.getGlobalEntity(
-        { user: true },
-        apiPost.authorId
-      ).user;
-      return post;
-    });
+  mapPostToAppModel(apiPost: MockPostApiModel) {
+    const post = new Post(apiPost.id);
+    post.title = apiPost.title;
+    post.authorId = apiPost.authorId;
+    post.body = apiPost.body;
+    post.author = this.globalService.getGlobalEntity(
+      { user: true },
+      apiPost.authorId
+    ).user;
+    return post;
+  }
+
+  mapPostsToAppModel(apiPosts: MockPostApiModel[]) {
+    return apiPosts.map(this.mapPostToAppModel);
   }
 }

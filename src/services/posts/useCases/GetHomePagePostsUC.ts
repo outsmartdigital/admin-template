@@ -21,7 +21,13 @@ export class GetHomePagePostsUC extends BaseUseCase {
   @Inject(() => PostMapper)
   postMapper: PostMapper;
 
+  constructor() {
+    super();
+    console.log("Constructed UC");
+  }
+
   async execute(): Promise<void> {
+    debugger;
     const res = await this.graphqlClient
       .query<GetHomepagePosts>({
         query: GET_HOMEPAGE_POSTS
@@ -33,7 +39,7 @@ export class GetHomePagePostsUC extends BaseUseCase {
   }
 
   private getMockPosts() {
-    return this.postMapper.mapPostToAppModel([
+    return this.postMapper.mapPostsToAppModel([
       {
         id: "123",
         authorId: "1",
