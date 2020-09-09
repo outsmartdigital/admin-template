@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AppProps } from "next/app";
 import { AppHeader } from "../src/Components/AppHeader/AppHeader";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
 
-// import { useLanguages } from "./hooks";
 import { IntlProvider } from "react-intl";
 import { messages } from "../src/constants/messages";
 import { useIntl } from "../src/constants/intl/intlHooks";
@@ -16,16 +15,11 @@ import { useIntl } from "../src/constants/intl/intlHooks";
  */
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-  // const [language] = useLanguages();
   const [translatedMessage, language] = useIntl();
   const intlLocale = language;
 
   return (
-    <IntlProvider
-      locale={intlLocale}
-      defaultLocale={"en"}
-      messages={messages[language]}
-    >
+    <IntlProvider locale={intlLocale} defaultLocale={"en"} messages={messages}>
       <ThemeProvider theme={theme}>
         <AppHeader />
         <Component {...pageProps} />

@@ -4,7 +4,10 @@ import detectBrowserLanguage from "detect-browser-language";
 
 export const useIntl = () => {
   const [language] = useState<string>(() => {
-    const browserLanguage: string = detectBrowserLanguage();
+    let browserLanguage = "en";
+    if (typeof window !== "undefined") {
+      browserLanguage = detectBrowserLanguage();
+    }
     const languageWithoutRegion: string = browserLanguage.split(/[-_]/)[0];
     return languageWithoutRegion;
   });
