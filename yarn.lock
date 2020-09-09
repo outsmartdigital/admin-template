@@ -14904,9 +14904,9 @@ react@^16.13.1:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-reactn@^2.2.5:
+reactn@^2.2.7:
   version "2.2.7"
-  resolved "https://registry.yarnpkg.com/reactn/-/reactn-2.2.7.tgz#4d9a94ab0d8a540062666408e4bf1fae6892cecc"
+  resolved "https://registry.npmjs.org/reactn/-/reactn-2.2.7.tgz#4d9a94ab0d8a540062666408e4bf1fae6892cecc"
   integrity sha512-cqnt23kWN/ABqEZhW3OlpqI1DgTaaNDeHpSHtyd81qk0H1jd32zPTzJ69Hpzti2WakwNYveGFPIgI6i7E7nXOA==
   dependencies:
     use-force-update "^1.0.5"
