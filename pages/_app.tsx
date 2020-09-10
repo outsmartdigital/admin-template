@@ -16,10 +16,9 @@ import { useIntl } from "../src/constants/intl/intlHooks";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [translatedMessage, language] = useIntl();
-  const intlLocale = language;
 
   return (
-    <IntlProvider locale={intlLocale} defaultLocale={"en"} messages={messages}>
+    <IntlProvider locale={language} defaultLocale={"en"} messages={messages}>
       <ThemeProvider theme={theme}>
         <AppHeader />
         <Component {...pageProps} />

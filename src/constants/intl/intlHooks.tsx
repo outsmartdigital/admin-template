@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import detectBrowserLanguage from "detect-browser-language";
+import { checkIfServer } from "../../utils/checkIfServer";
 
 export const useIntl = () => {
+  const isServer = checkIfServer();
   const [language] = useState<string>(() => {
     let browserLanguage = "en";
-    // the following 'if' is an workaround to avoid the 'navigator not defined' error
-    // useEffect could also be used, but it would create aditional renders
-    if (typeof window !== "undefined") {
+    if (!isServer) {
       browserLanguage = detectBrowserLanguage();
     }
     const languageWithoutRegion: string = browserLanguage.split(/[-_]/)[0];
