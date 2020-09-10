@@ -3,7 +3,6 @@ import App, { AppProps, AppContext } from "next/app";
 import { AppHeader } from "../src/Components/AppHeader/AppHeader";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
-
 import { IntlProvider } from "react-intl";
 import { messages } from "../src/constants/messages";
 
@@ -20,7 +19,7 @@ class CustomApp extends App<
     let pageProps = {};
 
     const { req } = ctx;
-    const language = req
+    const language: string = req
       ? req.headers["accept-language"]
       : window.navigator.language;
 
@@ -42,11 +41,11 @@ class CustomApp extends App<
       <IntlProvider
         locale={formatedLanguage}
         defaultLocale={"pt"}
-        messages={messages}
+        messages={messages[formatedLanguage]}
       >
         <ThemeProvider theme={theme}>
           <AppHeader />
-          <Component {...pageProps} />
+          <Component {...{ ...pageProps, formatedLanguage }} />
         </ThemeProvider>
       </IntlProvider>
     );

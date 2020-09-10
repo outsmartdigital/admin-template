@@ -11,10 +11,11 @@ export const HomeContainer = styled.div`
   align-items: center;
 `;
 
-export const HomePage: React.FC = () => {
+export const HomePage: React.FC = data => {
   return (
     <>
-      <HomeContainer>{messages.greeting}</HomeContainer>
+      <HomeContainer>{messages[data.formatedLanguage].greeting}</HomeContainer>
+      {console.log(data)}
     </>
   );
 };
