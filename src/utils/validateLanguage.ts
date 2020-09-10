@@ -1,4 +1,4 @@
-export const backupLanguage = "en";
+export const backupLanguage = "pt";
 
 // Linguas disponiveis no site
 export const languages = ["en", "pt"];

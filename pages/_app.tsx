@@ -24,9 +24,6 @@ class CustomApp extends App<
       ? req.headers["accept-language"]
       : window.navigator.language;
 
-    // TODO: isso traz a possivel linguagem preferida, mas falta tratar essa resposta pra usar no locale
-    console.log("Language é:", language);
-
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
@@ -39,11 +36,15 @@ class CustomApp extends App<
 
   render() {
     const { Component, pageProps, language } = this.props;
+    const formatedLanguage = language.split(/[-_]/)[0];
 
     return (
-      <IntlProvider locale={"en"} defaultLocale={"pt"} messages={messages}>
+      <IntlProvider
+        locale={formatedLanguage}
+        defaultLocale={"pt"}
+        messages={messages}
+      >
         <ThemeProvider theme={theme}>
-          {console.log("AAAAAAAAA", language)}
           <AppHeader />
           <Component {...pageProps} />
         </ThemeProvider>
