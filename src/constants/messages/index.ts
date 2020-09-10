@@ -1,13 +1,16 @@
 import { messages_en } from "../strings/translations/en";
 import { messages_pt } from "../strings/translations/ptbr";
 import detectBrowserLanguage from "detect-browser-language";
+import { checkIfServer } from "../../utils/checkIfServer";
 
 // TODO: pegar a função checkIfServer, que ainda não ta na master
 
 let appLanguage = messages_en;
 
+const isServer = checkIfServer();
+
 let browserLanguage = "en";
-if (typeof window !== "undefined") {
+if (!isServer) {
   browserLanguage = detectBrowserLanguage();
 }
 const languageWithoutRegion: string = browserLanguage.split(/[-_]/)[0];
