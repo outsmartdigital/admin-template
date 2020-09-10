@@ -1,0 +1,15 @@
+export const backupLanguage = "en";
+
+// Linguas disponiveis no site
+export const languages = ["en", "pt"];
+
+export const validateLanguage = (language: string) => {
+  return languages.includes(language) ? language : backupLanguage;
+};
+
+export const getLanguage = (lang: string) => {
+  let language = lang.match(/[a-zA-Z\-]{2,10}/g)[0];
+  language = language.split("-")[0];
+
+  return validateLanguage(language);
+};

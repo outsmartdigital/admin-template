@@ -38,11 +38,12 @@ class CustomApp extends App<
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, language } = this.props;
 
     return (
       <IntlProvider locale={"en"} defaultLocale={"pt"} messages={messages}>
         <ThemeProvider theme={theme}>
+          {console.log("AAAAAAAAA", language)}
           <AppHeader />
           <Component {...pageProps} />
         </ThemeProvider>
