@@ -15,7 +15,6 @@ export const HomePage: React.FC = data => {
   return (
     <>
       <HomeContainer>{messages[data.formatedLanguage].greeting}</HomeContainer>
-      {console.log(data)}
     </>
   );
 };
