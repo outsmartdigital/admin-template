@@ -3,6 +3,7 @@ export const backupLanguage = "pt";
 // Linguas disponiveis no site
 export const languages = ["en", "pt"];
 
+// Checar se a lingua atual é suportada pelo site
 export const validateLanguage = (language: string) => {
   return languages.includes(language) ? language : backupLanguage;
 };

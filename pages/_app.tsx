@@ -6,6 +6,9 @@ import { theme } from "../src/config/theme";
 import { IntlProvider } from "react-intl";
 import { messages } from "../src/constants/messages";
 
+import { getLanguage } from "../src/utils/validateLanguage";
+import { get } from "http";
+
 /**
  * With this file, we can customize the React entry point for every page of our website
  * Here we can add components that appear on every screen, or even hold state that all pages will use
@@ -35,7 +38,7 @@ class CustomApp extends App<
 
   render() {
     const { Component, pageProps, language } = this.props;
-    const formatedLanguage = language.split(/[-_]/)[0];
+    const formatedLanguage = getLanguage(language);
 
     return (
       <IntlProvider
