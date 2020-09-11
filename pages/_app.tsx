@@ -34,13 +34,13 @@ class CustomApp extends App<
 
   render() {
     const { Component, pageProps, language } = this.props;
-    const formatedLanguage = getLanguage(language);
+    const formattedLanguage = getLanguage(language);
 
     return (
       <IntlProvider
-        locale={formatedLanguage}
+        locale={formattedLanguage}
         defaultLocale={"pt"}
-        messages={messages[formatedLanguage]}
+        messages={messages[formattedLanguage]}
       >
         <ThemeProvider theme={theme}>
           <AppHeader />
