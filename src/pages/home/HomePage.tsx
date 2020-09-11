@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { messages } from "../../constants/messages";
 
+import { FormattedMessage, injectIntl } from "react-intl";
+
 export const HomeContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -11,10 +13,22 @@ export const HomeContainer = styled.div`
   align-items: center;
 `;
 
-export const HomePage: React.FC = data => {
+const HomePage: React.FC = props => {
+  const { intl } = props;
+  const name: string = "Darth Vader";
   return (
     <>
-      <HomeContainer>{messages[data.formatedLanguage].greeting}</HomeContainer>
+      <HomeContainer>
+        {/* Um exemplo como podemos usar o componente FormatedMessage com variáveis */}
+        <FormattedMessage
+          id="greeting"
+          description="A greeting message"
+          defaultMessage={`Olá, mundo! Eu sou o ${name}`}
+          values={{ userName: name }}
+        />
+      </HomeContainer>
     </>
   );
 };
+
+export default injectIntl(HomePage);

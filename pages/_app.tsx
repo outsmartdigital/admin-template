@@ -5,9 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
 import { IntlProvider } from "react-intl";
 import { messages } from "../src/constants/messages";
-
-import { getLanguage } from "../src/utils/validateLanguage";
-import { get } from "http";
+import { getLanguage, getUserLanguage } from "../src/utils/validateLanguage";
 
 /**
  * With this file, we can customize the React entry point for every page of our website
@@ -22,9 +20,7 @@ class CustomApp extends App<
     let pageProps = {};
 
     const { req } = ctx;
-    const language: string = req
-      ? req.headers["accept-language"]
-      : window.navigator.language;
+    const language = getUserLanguage(req);
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -48,7 +44,7 @@ class CustomApp extends App<
       >
         <ThemeProvider theme={theme}>
           <AppHeader />
-          <Component {...{ ...pageProps, formatedLanguage }} />
+          <Component {...pageProps} />
         </ThemeProvider>
       </IntlProvider>
     );

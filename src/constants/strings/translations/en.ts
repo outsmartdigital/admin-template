@@ -1,4 +1,4 @@
 export const messages_en = {
   // Greeting
-  greeting: "Hello, World!"
+  greeting: "Hello, World! My name is {userName}"
 };

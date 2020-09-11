@@ -14,3 +14,11 @@ export const getLanguage = (lang: string) => {
 
   return validateLanguage(language);
 };
+
+export const getUserLanguage = (req: object) => {
+  const language: string = req
+    ? req.headers["accept-language"]
+    : window.navigator.language;
+
+  return language;
+};
