@@ -1,4 +1,8 @@
-export const messages_en = {
+export const messages_en: object = {
   // Greeting
-  greeting: "Hello, World! My name is {userName}"
+  greeting: {
+    id: "pages.home.greeting",
+    defaultMessage: "Hello, World!",
+    description: "A greeting message"
+  }
 };
