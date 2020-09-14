@@ -4,7 +4,8 @@ import { AppHeader } from "../src/Components/AppHeader/AppHeader";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
 import { IntlProvider } from "react-intl";
-import { messages } from "../src/constants/messages";
+// import { messages } from "../src/constants/messages";
+import { getMessages } from "../src/constants/messages";
 import { getLanguage, getUserLanguage } from "../src/utils/validateLanguage";
 
 /**
@@ -35,12 +36,13 @@ class CustomApp extends App<
   render() {
     const { Component, pageProps, language } = this.props;
     const formattedLanguage = getLanguage(language);
+    const messages = getMessages(formattedLanguage);
 
     return (
       <IntlProvider
         locale={formattedLanguage}
         defaultLocale={"pt"}
-        messages={messages[formattedLanguage]}
+        messages={messages}
       >
         <ThemeProvider theme={theme}>
           <AppHeader />

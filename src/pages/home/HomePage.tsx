@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { messages } from "../../constants/messages";
-import { FormattedMessage, injectIntl } from "react-intl";
+import { getMessages } from "../../constants/messages";
+import { useIntl, FormattedMessage } from "react-intl";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -12,15 +12,16 @@ export const HomeContainer = styled.div`
   align-items: center;
 `;
 
-const HomePage: React.FC = props => {
-  const { intl } = props;
+const HomePage: React.FC = () => {
+  const intl = useIntl();
+  const messages = getMessages(intl.locale);
   return (
     <>
       <HomeContainer>
-        <FormattedMessage {...messages[intl.locale].greeting} />
+        <FormattedMessage {...messages.greeting} />
       </HomeContainer>
     </>
   );
 };
 
-export default injectIntl(HomePage);
+export default HomePage;
