@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { getMessages } from "../../constants/messages";
-import { useIntl, FormattedMessage } from "react-intl";
+import { messages } from "./messages";
+import { FormattedMessage } from "react-intl";
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -13,8 +13,6 @@ export const HomeContainer = styled.div`
 `;
 
 const HomePage: React.FC = () => {
-  const intl = useIntl();
-  const messages = getMessages(intl.locale);
   return (
     <>
       <HomeContainer>

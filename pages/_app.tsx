@@ -4,9 +4,8 @@ import { AppHeader } from "../src/Components/AppHeader/AppHeader";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
 import { IntlProvider } from "react-intl";
-// import { messages } from "../src/constants/messages";
-import { getMessages } from "../src/constants/messages";
 import { getLanguage, getUserLanguage } from "../src/utils/validateLanguage";
+// import { messages } from "../src/constants/messages";
 
 /**
  * With this file, we can customize the React entry point for every page of our website
@@ -36,13 +35,12 @@ class CustomApp extends App<
   render() {
     const { Component, pageProps, language } = this.props;
     const formattedLanguage = getLanguage(language);
-    const messages = getMessages(formattedLanguage);
 
     return (
       <IntlProvider
         locale={formattedLanguage}
         defaultLocale={"pt"}
-        messages={messages}
+        // messages={messages[formattedLanguage]}
       >
         <ThemeProvider theme={theme}>
           <AppHeader />
