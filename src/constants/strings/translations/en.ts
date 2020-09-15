@@ -1,7 +1,3 @@
-import { defineMessages } from "react-intl";
-
-export const messages_en = defineMessages({
-  greeting: {
-    id: "pages.home.greeting"
-  }
-});
+export const messages_en = {
+  "pages.home.greeting": "Hello, World!"
+};

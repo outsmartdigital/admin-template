@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../src/config/theme";
 import { IntlProvider } from "react-intl";
 import { getLanguage, getUserLanguage } from "../src/utils/validateLanguage";
-// import { messages } from "../src/constants/messages";
+import { messages } from "../src/constants/messages";
 
 /**
  * With this file, we can customize the React entry point for every page of our website
