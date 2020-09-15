@@ -8,7 +8,7 @@ export class PostMapper {
   @Inject(GlobalService)
   private globalService: GlobalService;
 
-  mapPostToAppModel(apiPost: MockPostApiModel) {
+  mapPostToAppModel = (apiPost: MockPostApiModel) => {
     const post = new Post(apiPost.id);
     post.title = apiPost.title;
     post.authorId = apiPost.authorId;
@@ -18,9 +18,9 @@ export class PostMapper {
       apiPost.authorId
     ).user;
     return post;
-  }
+  };
 
-  mapPostsToAppModel(apiPosts: MockPostApiModel[]) {
+  mapPostsToAppModel = (apiPosts: MockPostApiModel[]) => {
     return apiPosts.map(this.mapPostToAppModel);
-  }
+  };
 }
