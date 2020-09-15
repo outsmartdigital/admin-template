@@ -19,8 +19,6 @@ export const HomeContainer = styled.div`
   align-items: center;
 `
 
-// Needed to disable this eslint because it was breaking pre-commit on gitbash and we couldn't run 'git commit'
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HomePageProps {}
 
 export const HomePage: PageComponent<HomePageProps> = () => {
