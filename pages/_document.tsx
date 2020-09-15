@@ -1,5 +1,11 @@
 import React from "react";
-import Document, { DocumentContext } from "next/document";
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 /**
@@ -7,8 +13,8 @@ import { ServerStyleSheet } from "styled-components";
  * every page. We do this, for instance, in order to use styled-components in server-side rendering.
  * read more: https://nextjs.org/docs/advanced-features/custom-document
  */
-export default class CustomDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+export default class CustomDocument extends Document<{ globalState: any }> {
+  static async getInitialProps(ctx: DocumentContext & { getGlobal: any }) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -19,14 +25,13 @@ export default class CustomDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+
+      const globalState = { ...ctx.getGlobal() };
       return {
         ...initialProps,
+        globalState,
         styles: (
           <>
-            {/* You can add global styles below, like loading fonts etc */}
-            <style
-              dangerouslySetInnerHTML={{ __html: `body { margin: 0 } ` }}
-            />
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
@@ -35,5 +40,30 @@ export default class CustomDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    const { globalState } = this.props;
+    console.log("globalState here", globalState);
+    return (
+      <Html>
+        <Head />
+        <body>
+          <Main />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              __INITIAL_GLOBAL_STATE__ = ${JSON.stringify(
+                globalState,
+                null,
+                4
+              )};
+              `
+            }}
+          />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }

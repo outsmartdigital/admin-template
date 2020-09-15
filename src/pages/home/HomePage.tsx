@@ -1,7 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { messages } from "./messages";
-import { FormattedMessage } from "react-intl";
+import React, { useMemo } from 'react'
+import styled from 'styled-components'
+
+import Head from 'next/head'
+
+import { messages } from './messages'
+import { FormattedMessage } from 'react-intl'
+
+import { useGlobal } from '../../global/_globalUtils/useGlobal'
+import { PageComponent } from '../../utils/architecture/PageComponent'
+import { PostCard } from '../../components/PostCard/PostCard'
 
 export const HomeContainer = styled.div`
   width: 100%;
@@ -10,16 +17,30 @@ export const HomeContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
-const HomePage: React.FC = () => {
+// TODO: check where to put this component
+//         <FormattedMessage {...messages.greeting} />
+
+export interface HomePageProps {}
+
+export const HomePage: PageComponent<HomePageProps> = () => {
+  const [postIds] = useGlobal('homePagePosts')
+
+  const renderedPosts = useMemo(() => {
+    return postIds.map((postId) => {
+      return <PostCard key={`homePagePost.${postId}`} postId={postId} />
+    })
+  }, [postIds])
+
   return (
-    <>
-      <HomeContainer>
-        <FormattedMessage {...messages.greeting} />
-      </HomeContainer>
-    </>
-  );
-};
+    <HomeContainer>
+      <Head>
+        <title>Home Page</title>
+      </Head>
+      {renderedPosts}
+    </HomeContainer>
+  )
+}
 
-export default HomePage;
+export default HomePage
