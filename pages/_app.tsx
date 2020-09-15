@@ -40,7 +40,7 @@ class CustomApp extends App<
       <IntlProvider
         locale={formattedLanguage}
         defaultLocale={"pt"}
-        // messages={messages[formattedLanguage]}
+        messages={messages[formattedLanguage]}
       >
         <ThemeProvider theme={theme}>
           <AppHeader />
