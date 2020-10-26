@@ -8,6 +8,6 @@
   "enableCloudfront": false,
   "retries": 20,
   "error": "index.html",
-  "domain": "staging-kof-admin-website",
+  "domain": "template-web-react-ssg-staging",
   "configFile": ".s3-website.staging.json"
 }

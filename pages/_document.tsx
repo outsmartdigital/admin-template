@@ -1,12 +1,6 @@
-import React from "react";
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript
-} from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import React from 'react'
+import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
 
 /**
  * By extending the NextJs' Document class, we can customize the base HTML document generated for
@@ -15,18 +9,18 @@ import { ServerStyleSheet } from "styled-components";
  */
 export default class CustomDocument extends Document<{ globalState: any }> {
   static async getInitialProps(ctx: DocumentContext & { getGlobal: any }) {
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
+    const sheet = new ServerStyleSheet()
+    const originalRenderPage = ctx.renderPage
 
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
-        });
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+        })
 
-      const initialProps = await Document.getInitialProps(ctx);
+      const initialProps = await Document.getInitialProps(ctx)
 
-      const globalState = { ...ctx.getGlobal() };
+      const globalState = { ...ctx.getGlobal() }
       return {
         ...initialProps,
         globalState,
@@ -35,16 +29,15 @@ export default class CustomDocument extends Document<{ globalState: any }> {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
-      };
+        ),
+      }
     } finally {
-      sheet.seal();
+      sheet.seal()
     }
   }
 
   render() {
-    const { globalState } = this.props;
-    console.log("globalState here", globalState);
+    const { globalState } = this.props
     return (
       <Html>
         <Head />
@@ -53,17 +46,13 @@ export default class CustomDocument extends Document<{ globalState: any }> {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-              __INITIAL_GLOBAL_STATE__ = ${JSON.stringify(
-                globalState,
-                null,
-                4
-              )};
-              `
+              __INITIAL_GLOBAL_STATE__ = ${JSON.stringify(globalState, null, 4)};
+              `,
             }}
           />
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
