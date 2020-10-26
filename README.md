@@ -184,7 +184,11 @@ For this to work you need `./pages/about.tsx`, but your navigations inside the a
 to reference `/sobre`.
 
 ```jsx
-<Link href={'/sobre'}>
+<Link href={'/about'} as={'/sobre'}>
   <a>Go To About Page</a>
 </Link>
 ```
+
+For ssg websites (which use the `next export` feature) you may need to
+define a `exportPathMap` to your `next.config.js` if your project has
+custom routes. Check out the [docs](https://nextjs.org/docs/api-reference/next.config.js/exportPathMap).

@@ -22,6 +22,12 @@ const config = {
   trailingSlash: true,
   assetPrefix: isLocal ? '' : `${process.env.CDN_STATIC_BASE_URL}/javascript/${buildId}`,
   basePath: (!isLocal && stage && `/${stage}`) || '', // TODO delete this if not using API gateway URL
+  exportPathMap: () => ({
+    // Only needed for ssg
+    '/': { page: '/' },
+    '/sobre': { page: '/about' },
+    '/jobs': { page: '/jobs' },
+  }),
   webpack(config, options) {
     // Disable type checking
     // config.plugins = config.plugins.filter((plugin) => {

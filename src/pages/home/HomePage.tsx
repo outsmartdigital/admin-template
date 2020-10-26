@@ -37,7 +37,7 @@ export const HomePage: PageComponent<HomePageProps> = () => {
       <Head>
         <title>Home Page</title>
       </Head>
-      <Link href={'/sobre'}>
+      <Link href={'/about'} as={'/sobre'}>
         <a>Go To About Page</a>
       </Link>
       <img src={getAssetUrl('/images/logo.png')} alt="my image" />
