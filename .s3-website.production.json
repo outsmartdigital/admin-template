@@ -1,13 +1,13 @@
 {
   "index": "index.html",
   "region": "us-east-1",
-  "uploadDir": "./build",
+  "uploadDir": "./out",
   "prefix": "",
   "exclude": [],
   "corsConfiguration": [],
   "enableCloudfront": false,
   "retries": 20,
   "error": "index.html",
-  "domain": "kof-admin-website",
+  "domain": "template-web-react-ssg-prod",
   "configFile": ".s3-website.production.json"
 }
