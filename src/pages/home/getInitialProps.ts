@@ -6,6 +6,12 @@ export const getInitialProps: GetInitialProps<HomePageProps> = async ({
   container
 }) => {
   const useCase = container.get(GetHomePagePostsUC);
-  await useCase.execute();
+  try {
+    await useCase.execute();
+  } catch (e) {
+    return {
+      internalError: e
+    };
+  }
   return {};
 };
