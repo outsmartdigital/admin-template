@@ -10,11 +10,14 @@ import { theme } from "../src/config/theme";
 import { GlobalStyles } from "../src/components/GlobalStyles/GlobalStyles";
 import { withGlobalState } from "../src/utils/hocs/withGlobalState";
 import { checkIfServer } from "../src/utils/checkIfServer";
-import { Container } from "typedi";
+import { Container, ContainerInstance } from "typedi";
 import { uuid } from "../src/utils/uuid";
 import { ContainerContext } from "../src/utils/architecture/di/containerContext";
 import { setupContainer } from "../src/container";
-import { EnhancedNextPageContext } from "../src/utils/architecture/PageComponent";
+import {
+  EnhancedNextPageContext,
+  PageComponent
+} from "../src/utils/architecture/PageComponent";
 import { Context } from "../src/utils/architecture/di/contextService";
 
 // Check if we are in server environment
@@ -41,30 +44,44 @@ interface CustomAppProps extends AppProps {
  * read more: https://nextjs.org/docs/advanced-features/custom-app
  */
 class CustomApp extends App<CustomAppProps> {
+  private static containerId: string;
+
   static async getInitialProps({ ctx, Component }: AppContext) {
-    console.log("App Get Initial Props");
-    const containerId = uuid();
+    const containerId = isServer ? uuid() : CustomApp.containerId;
     const container = Container.of(containerId);
     {
       (ctx as EnhancedNextPageContext).container = container;
     }
     container.set(Context, ctx);
-    if (isServer) {
-      setupContainer(container);
-    }
+    CustomApp.setupContainer(container, Component);
     ctx.res?.on("finish", () => container.remove(containerId));
-    let pageProps = (await Component.getInitialProps?.(ctx)) || {};
+
+    const pageProps = (await Component.getInitialProps?.(ctx)) || {};
     return { pageProps, containerId };
   }
 
   constructor(props: CustomAppProps) {
     super(props);
     if (!isServer) {
+      CustomApp.containerId = props.containerId;
       const container = Container.of(props.containerId);
       if (!container.has(Context)) {
         container.set(Context, { container });
+        CustomApp.setupContainer(container, props.Component);
       }
-      setupContainer(container);
+    }
+  }
+
+  static setupContainer(
+    container: ContainerInstance,
+    component: PageComponent
+  ) {
+    setupContainer(container);
+    if (component.getInjectables) {
+      const containersToInject = component.getInjectables();
+      containersToInject.forEach(([key, value]) => {
+        container.set(key, container.get(value));
+      });
     }
   }
 
@@ -77,6 +94,7 @@ class CustomApp extends App<CustomAppProps> {
     } = this.props;
     const container = Container.of(containerId);
     const Wrapper = GlobalStateProvider || React.Fragment;
+    const { internalError } = pageProps;
     return (
       <Wrapper>
         <ContainerContext.Provider value={container}>
@@ -85,7 +103,8 @@ class CustomApp extends App<CustomAppProps> {
           </Head>
           <ThemeProvider theme={theme}>
             <AppHeader />
-            <Component {...pageProps} />
+            {!internalError && <Component {...pageProps} />}
+            {/*  TODO add default error page */}
           </ThemeProvider>
           <GlobalStyles />
         </ContainerContext.Provider>

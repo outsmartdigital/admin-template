@@ -37,3 +37,5 @@ yarn-error.log*
 
 localhost*
 /.idea/
+
+schema.graphql

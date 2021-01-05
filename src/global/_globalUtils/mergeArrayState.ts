@@ -44,6 +44,7 @@ export const mergeArrayEntityState = <
       if (Array.isArray(assignedState)) {
         // @ts-ignore
         newState = [
+          // @ts-ignore
           ...((output[entityKey].entities || {})[stateKey] || []),
           ...assignedState
         ];

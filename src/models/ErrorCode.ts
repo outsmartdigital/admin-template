@@ -1,0 +1,5 @@
+export enum ErrorCode {
+  NETWORK_ERROR = "NETWORK_ERROR",
+  UNKNOWN_ERROR = "UNKNOWN_ERROR",
+  NOT_FOUND = "NOT_FOUND"
+}
