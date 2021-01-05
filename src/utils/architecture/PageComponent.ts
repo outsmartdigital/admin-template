@@ -13,7 +13,7 @@ export type PageComponent<P = {}, IP = P> = NextComponentType<
   IP,
   P
 > & {
-  injectContainers?: () => Array<[any, any]>;
+  getInjectables?: () => Array<[any, any]>;
 };
 
 export type EnhancedNextPageContext = NextPageContext & {

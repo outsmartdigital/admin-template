@@ -44,24 +44,26 @@ interface CustomAppProps extends AppProps {
  * read more: https://nextjs.org/docs/advanced-features/custom-app
  */
 class CustomApp extends App<CustomAppProps> {
+  private static containerId: string;
+
   static async getInitialProps({ ctx, Component }: AppContext) {
-    const containerId = uuid();
+    const containerId = isServer ? uuid() : CustomApp.containerId;
     const container = Container.of(containerId);
     {
       (ctx as EnhancedNextPageContext).container = container;
     }
     container.set(Context, ctx);
-    if (isServer) {
-      CustomApp.setupContainer(container, Component);
-    }
+    CustomApp.setupContainer(container, Component);
     ctx.res?.on("finish", () => container.remove(containerId));
-    let pageProps = (await Component.getInitialProps?.(ctx)) || {};
+
+    const pageProps = (await Component.getInitialProps?.(ctx)) || {};
     return { pageProps, containerId };
   }
 
   constructor(props: CustomAppProps) {
     super(props);
     if (!isServer) {
+      CustomApp.containerId = props.containerId;
       const container = Container.of(props.containerId);
       if (!container.has(Context)) {
         container.set(Context, { container });
@@ -75,8 +77,8 @@ class CustomApp extends App<CustomAppProps> {
     component: PageComponent
   ) {
     setupContainer(container);
-    if (component.injectContainers) {
-      const containersToInject = component.injectContainers();
+    if (component.getInjectables) {
+      const containersToInject = component.getInjectables();
       containersToInject.forEach(([key, value]) => {
         container.set(key, container.get(value));
       });
