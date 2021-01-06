@@ -25,7 +25,7 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: deploy development
-          command: yarn deploy:dev:ssr
+          command: yarn deploy:dev:ssg
 
   release-staging:
     docker:
@@ -46,7 +46,7 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: deploy staging
-          command: yarn run deploy:staging:ssr
+          command: yarn run deploy:staging:ssg
 
   release-production:
     docker:
@@ -67,7 +67,7 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: deploy production
-          command: yarn run deploy:prod:ssr
+          command: yarn run deploy:prod:ssg
 
 workflows:
   version: 2

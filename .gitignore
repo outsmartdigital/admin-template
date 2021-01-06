@@ -39,3 +39,18 @@ localhost*
 /.idea/
 
 schema.graphql
+
+### Terraform ###
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+.terragrunt*
+
+# Serverless directories
+.serverless
+
+## Build Config JSON
+.build.config.json
