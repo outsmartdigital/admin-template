@@ -8,10 +8,11 @@ global.fetch = fetch
 
 const { handleRoutes } = require('./routes')
 
+const dotEnvPath = `./.env.${process.env.STAGE || 'dev'}`
 require('dotenv').config({
-  path: path.resolve(__dirname, `./.env.${process.env.STAGE}`),
+  path: path.resolve(__dirname, dotEnvPath),
 })
-console.log('=> Global context started!', path.resolve(__dirname, `./.env.${process.env.STAGE}`))
+console.log('=> Global context started!', path.resolve(__dirname, dotEnvPath))
 
 const port = parseInt(process.env.PORT || '', 10) || 3000
 const dev = process.env.IS_LOCAL === 'true'
@@ -25,11 +26,9 @@ try {
   const buildConfig = fs.readFileSync('.build.config.json').toString('utf-8')
   buildId = buildConfig && JSON.parse(buildConfig).buildId
 } catch (e) {
-  console.error(e)
-}
-
-if (!buildId && !dev) {
-  throw (new Error('InvalidBuildId').message = `Invalid build id: ${buildId}. Was the script setBuildId.js not called?`)
+  if (!buildId && !dev) {
+    throw (new Error('InvalidBuildId').message = `Build id not found. Was the script setBuildId.js not called?`)
+  }
 }
 
 /**

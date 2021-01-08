@@ -5,14 +5,17 @@
  */
 import { authState } from "./auth/authState";
 import { postEntityState, initialPostState } from "./post/initialPostState";
+import { initialUserState, userEntityState } from "./user/initialUserState";
 
 export const InitialGlobalState = {
   ...authState,
-  ...initialPostState
+  ...initialPostState,
+  ...initialUserState
 };
 
 export const InitialGlobalEntityState = {
-  ...postEntityState
+  ...postEntityState,
+  ...userEntityState
 };
 
 export type GlobalState = typeof InitialGlobalState;

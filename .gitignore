@@ -38,6 +38,8 @@ yarn-error.log*
 localhost*
 /.idea/
 
+schema.graphql
+
 ### Terraform ###
 # Local .terraform directories
 **/.terraform/*

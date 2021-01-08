@@ -2,9 +2,10 @@ import {
   GlobalEntityState,
   GlobalEntityStateKeys
 } from "../InitialGlobalState";
-import { getGlobal } from "./useGlobal";
 
-export const getEntityGlobal = <Type extends Partial<GlobalEntityStateKeys>>(
+export const buildGetGlobalEntity = (getGlobal: any) => <
+  Type extends Partial<GlobalEntityStateKeys>
+>(
   state: Partial<{ [key in Type]: boolean }>,
   id: string
 ) => {

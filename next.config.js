@@ -9,8 +9,14 @@ const env = process.env.NODE_ENV || 'development'
 const isLocal = process.env.IS_LOCAL === 'true'
 const stage = process.env.STAGE
 
-const buildConfig = fs.readFileSync('.build.config.json').toString('utf-8')
-const buildId = buildConfig && JSON.parse(buildConfig).buildId
+let buildId
+
+try {
+  const buildConfig = fs.readFileSync('.build.config.json').toString('utf-8')
+  buildId = buildConfig && JSON.parse(buildConfig).buildId
+} catch (e) {
+  console.log('No buildId extracted')
+}
 
 if (!buildId && !isLocal) {
   throw (new Error('InvalidBuildId').message = `Invalid build id: ${buildId}. Was the script setBuildId.js not called?`)
