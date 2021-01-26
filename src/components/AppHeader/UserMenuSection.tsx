@@ -29,13 +29,6 @@ const UserMenuSection: React.FC<UserMenuSectionProps> = () => {
               </CustomLink>
             </ListItemText>
           </ListItem>
-          <ListItem button>
-            <ListItemText>
-              <CustomLink href={'/users/manageAccess'}>
-                <Typography>Manage access</Typography>
-              </CustomLink>
-            </ListItemText>
-          </ListItem>
         </List>
       </Collapse>
     </section>

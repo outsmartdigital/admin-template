@@ -1,7 +1,9 @@
-import { User } from "../../models/User";
+import { User } from '../../models/User'
 
-export const initialUserState = {};
+export const initialUserState = {
+  userIds: [] as string[],
+}
 
 export const userEntityState = {
-  user: ({} as unknown) as User
-};
+  user: ({} as unknown) as User,
+}

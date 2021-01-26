@@ -18,6 +18,7 @@ import Head from 'next/head'
 import { EnhancedNextPageContext, PageComponent } from '../src/utils/architecture/PageComponent'
 import { Context } from '../src/utils/architecture/di/contextService'
 import { setupCommonContainer } from '../src/container'
+import { Box } from '@material-ui/core'
 
 // Check if we are in server environment
 const isServer = checkIfServer()
@@ -96,11 +97,13 @@ class CustomApp extends App<CustomAppProps> {
         <ContainerContext.Provider value={container}>
           <Wrapper>
             <Head>
-              <title>Outsmart Digital NextJs Template</title>
+              <title>Outsmart Digital Admin Template</title>
             </Head>
             <ThemeProvider theme={theme}>
               <AppHeader />
-              <Component {...pageProps} />
+              <Box p={2}>
+                <Component {...pageProps} />
+              </Box>
             </ThemeProvider>
             <GlobalStyles />
           </Wrapper>
