@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
-import { FormattedMessage } from 'react-intl'
 import Link from 'next/link'
+import { FormattedMessage } from 'react-intl'
 
 import { PageComponent } from '../../utils/architecture/PageComponent'
-import { PostCard } from '../../components/PostCard/PostCard'
 import { useService } from '../../utils/architecture/di/containerContext'
 import { PostRepository } from '../../repository/PostRepository'
 import { useUseCase } from '../../utils/hooks/useUseCase'
 import { GetPostUc } from '../../services/posts/useCases/GetPostUC'
 import { GetHomePagePostsUC } from '../../services/posts/useCases/GetHomePagePostsUC'
 import { getAssetUrl } from '../../utils/getAssetUrl'
+import { PostCard } from '../../components/PostCard/PostCard'
 import { messages } from './messages'
 
 export const HomeContainer = styled.div`
