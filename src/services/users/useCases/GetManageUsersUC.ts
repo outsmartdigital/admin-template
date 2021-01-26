@@ -16,11 +16,7 @@ export class GetManageUsersUC extends BaseUseCase {
   userService: UserService
 
   async execute(): Promise<void> {
-    console.log('executou get posts')
     const users = await this.userService.getUsers()
-    console.log('REPO\n')
-    console.log(users)
-
     await this.userRepo.saveUsers(users)
   }
 }

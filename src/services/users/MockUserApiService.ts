@@ -8,7 +8,6 @@ export class MockUserApiService implements UserService {
 
   async getUsers(): Promise<User[]> {
     const users = await axios.get('https://jsonplaceholder.typicode.com/users')
-    console.log(users.data)
     return users.data
   }
 
