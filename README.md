@@ -1,12 +1,15 @@
 # Outsmart Digital Template React Web
 
-This project is a template for Outsmart Digital projects that use React for web development.
+This project is a template for back office applications based on our [Frontend Template](https://github.com/outsmartdigital/template-spa)
+
 It can be used for both SPAs (single page applications) and SSR (server side rendered) applications.
 It is built on top of [Next.js](https://nextjs.org/) project and bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First add _NEXT_PUBLIC_GRAPHQL_URL_ and _NEXT_PUBLIC_PUBLIC_TOKEN_ env vars on `config.ts`
+
+Then run the development server:
 
 ```bash
 npm run dev
